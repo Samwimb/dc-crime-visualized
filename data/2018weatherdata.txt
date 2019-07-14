@@ -1,4 +1,4 @@
-  USAF  WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H  VSB MW MW MW MW AW AW AW AW W TEMP DEWP    SLP   ALT    STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
+USAF WBAN YR--MODAHRMN DIR SPD GUS CLG SKC L M H VSB MW MW MW MW AW AW AW AW W TEMP DEWP SLP ALT STP MAX MIN PCP01 PCP06 PCP24 PCPXX SD
 724030 93738 201801010000 ***   0 *** 722 SCT * * * 10.0 ** ** ** ** ** ** ** ** *   14    6 1029.5 ***** 1017.8  21  13 *****  0.00 ***** ***** ** 
 724030 93738 201801010052 320   5 *** 722 SCT * * * 10.0 ** ** ** ** ** ** ** ** *   15    8 1030.1 30.41 1017.9 *** ***  0.00 ***** ***** ***** ** 
 724030 93738 201801010152 ***   0 *** 722 CLR * * * 10.0 ** ** ** ** ** ** ** ** *   11    6 1030.6 30.42 1018.3 *** ***  0.00 ***** ***** ***** ** 
