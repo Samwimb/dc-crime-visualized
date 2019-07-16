@@ -11,7 +11,12 @@ function heatMap(crimeData) {
   var coords = []
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
-        return L.circleMarker(feature.geometry.coordinates);
+        return L.circleMarker(feature.geometry.coordinates, {
+          stroke: false,
+          fillColor: "Red",
+          fillOpacity: .08,
+          radius: 3
+        });
     },
     onEachFeature: function (feature, layer) {
         layer.bindPopup("<h3>" + feature.properties.place + "<hr>Magnitude: "
@@ -22,7 +27,7 @@ function heatMap(crimeData) {
       return new L.heatLayer(coords);
       }
 });
-console.log(crimeLayer)
+// console.log(crimeLayer)
 createMap(crimeLayer);
 }
 // function heatMap(response) {
@@ -92,7 +97,7 @@ function createMap(crimeLayer) {
   
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
-      Crime: crimeLayer,
+      // Crime: crimeLayer,
     };
   
     // Create our map, giving it the streetmap and earthquakes layers to display on load
@@ -102,15 +107,18 @@ function createMap(crimeLayer) {
       timeDimension: true,
       timeDimensionOptions: {
         timeInterval : "2018-01-01/2018-12-31",
-        period: "P2D",
+        period: "P1D",
         autoPlay: true
       },
       timeDimensionControl: true,
       timeDimensionControlOptions: {
         loopButton: true,
-        autoPlay: true
+        autoPlay: true,
+        minSpeed: 1,
+        maxSpeed: 5,
+        speedStep: 1
       },
-      layers: [streetmap, crimeLayer]
+      layers: [streetmap]
     });
   
     // Create a layer control
@@ -139,8 +147,8 @@ var timeLayer = L.timeDimension.layer.geoJson.geometryCollection = function(laye
 
 
 geoJsonTimeLayer = L.timeDimension.layer.geoJson.geometryCollection(crimeLayer, {
-  updateTimeDimension: true,
+  // updateTimeDimension: true,
   updateTimeDimensionMode: 'replace',
-  duration: 'PT1H',
+  duration: 'P1Y',
   }).addTo(myMap);
 }
