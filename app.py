@@ -101,16 +101,12 @@ def sample_metadata(date):
                                  "coordinates": [result[0], result[1]]
                     },
                     "properties": {"report_date": result[2],
-<<<<<<< HEAD
                                    "offense": result[3],
                                    "weather": {"temp_avg": result[4],
                                                "temp_max": result[5],
                                                "temp_min": result[6],
                                                "lunar_illum": result[7]
                                    }
-=======
-                                   "offense": result[3]
->>>>>>> origin/flask-test-sw
                     }
                 }
 
