@@ -32,6 +32,7 @@ Base = declarative_base()
 # Set up classes
 class Crime(Base):
     __tablename__ = 'crime_data'
+    i = Column(Integer)
     X = Column(Float)
     Y = Column(Float)
     CCN = Column(String(255), primary_key=True)
@@ -57,9 +58,11 @@ class Crime(Base):
     END_DATE = Column(String(255))
     OBJECTID = Column(String(255))
     OCTO_RECORD_ID = Column(String(255))
-
-# Weather = Base.classes.weather_data
-# Lunar = Base.classes.lunar_data
+    DATE = Column(String(255))
+    AVG = Column(Float)
+    MAX = Column(Integer)
+    MIN = Column(Integer)
+    PctIllum = Column(Float)
 
 
 #################################################
@@ -79,7 +82,11 @@ def sample_metadata(date):
         Crime.LATITUDE,
         Crime.LONGITUDE,
         Crime.REPORT_DAT,
-        Crime.OFFENSE
+        Crime.OFFENSE,
+        Crime.AVG,
+        Crime.MAX,
+        Crime.MIN,
+        Crime.ILLUM
     ]
 
     results = db.session.query(*sel).filter(Crime.REPORT_DAT.like(f"{date}%")).all()
@@ -91,14 +98,19 @@ def sample_metadata(date):
                     "geometry": {"type": "Point",
                                  "coordinates": [result[0], result[1]]
                     },
-                    "properties": {"Report Date": result[2],
-                                   "Offense": result[3]
+                    "properties": {"report_date": result[2],
+                                   "offense": result[3],
+                                   "weather": {"temp_avg": result[4],
+                                               "temp_max": result[5],
+                                               "temp_min": result[6],
+                                               "lunar_illum": result[7]
+                                   }
                     }
                 }
 
         geo_json["features"].append(event)
 
-    print(geo_json)
+    # print(geo_json)
 
     return jsonify(geo_json)
 
