@@ -93,7 +93,7 @@ def sample_metadata(date):
                     "geometry": {"type": "Point",
                                  "coordinates": [result[0], result[1]]
                     },
-                    "properties": {"reportdate": result[2],
+                    "properties": {"report_date": result[2],
                                    "offense": result[3]
                     }
                 }

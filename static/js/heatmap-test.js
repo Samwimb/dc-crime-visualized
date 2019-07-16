@@ -36,7 +36,7 @@ d3.json(url, function(response) {
 // L.TimeDimension.Layer.GeoJson.GeometryCollection = L.TimeDimension.Layer.GeoJson.extend({
 //   // Do not modify features. Just return the feature if it intersects the time interval
 //   _getFeatureBetweenDates: function(feature, minTime, maxTime) {
-//     var time = new Date(feature.properties.reportdate);
+//     var time = new Date(feature.properties.report_date);
 //       if (time > maxTime || time < minTime) {
 //           return null;
 //       }

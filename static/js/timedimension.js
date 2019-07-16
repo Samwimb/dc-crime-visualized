@@ -11,11 +11,11 @@ function heatMap(crimeData) {
   var coords = []
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
-        return L.circleMarker(feature.geometry.coordinates, {
+        return L.circle(feature.geometry.coordinates, {
           stroke: false,
           fillColor: "Red",
-          fillOpacity: .08,
-          radius: 3
+          fillOpacity: 1,
+          radius: 50
         });
     },
     onEachFeature: function (feature, layer) {
@@ -41,7 +41,7 @@ createMap(crimeLayer);
 //         var crimeDate = response[i].properties;
 
 //         if(crimeDate) {
-//           dateArray.push(crimeDate.reportdate)
+//           dateArray.push(crimeDate.report_date)
 //         }
     
 //         if (location) {
@@ -118,7 +118,7 @@ function createMap(crimeLayer) {
         maxSpeed: 5,
         speedStep: 1
       },
-      layers: [streetmap]
+      layers: [darkmap]
     });
   
     // Create a layer control
@@ -133,7 +133,7 @@ function createMap(crimeLayer) {
 L.TimeDimension.Layer.GeoJson.GeometryCollection = L.TimeDimension.Layer.GeoJson.extend({
   // Do not modify features. Just return the feature if it intersects the time interval
   _getFeatureBetweenDates: function(feature, minTime, maxTime) {
-    var time = new Date(feature.properties.reportdate);
+    var time = new Date(feature.properties.report_date);
       if (time > maxTime || time < minTime) {
           return null;
       }
@@ -149,6 +149,6 @@ var timeLayer = L.timeDimension.layer.geoJson.geometryCollection = function(laye
 geoJsonTimeLayer = L.timeDimension.layer.geoJson.geometryCollection(crimeLayer, {
   // updateTimeDimension: true,
   updateTimeDimensionMode: 'replace',
-  duration: 'P1Y',
+  duration: 'P1D',
   }).addTo(myMap);
 }
