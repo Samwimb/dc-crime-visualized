@@ -9,9 +9,10 @@ d3.json(queryURL, function(data) {
 
 function heatMap(crimeData) {
   var coords = []
+  
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
-        return L.circle(feature.geometry.coordinates, {
+        return L.marker(feature.geometry.coordinates, {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
