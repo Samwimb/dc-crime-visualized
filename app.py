@@ -31,7 +31,7 @@ Base = declarative_base()
 
 # Set up classes
 class Crime(Base):
-    __tablename__ = 'crime_data'
+    __tablename__ = 'crime_weather'
     i = Column(Integer)
     X = Column(Float)
     Y = Column(Float)
@@ -86,7 +86,7 @@ def sample_metadata(date):
         Crime.AVG,
         Crime.MAX,
         Crime.MIN,
-        Crime.ILLUM
+        Crime.PctIllum
     ]
 
     results = db.session.query(*sel).filter(Crime.REPORT_DAT.like(f"{date}%")).all()
