@@ -9,7 +9,7 @@ import numpy as np
 
 import sqlalchemy
 from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy import Column, Integer, String, Float
+from sqlalchemy import Column, Integer, String, Float, func
 from sqlalchemy.ext.automap import automap_base
 from sqlalchemy.orm import Session
 from sqlalchemy import create_engine
@@ -78,8 +78,8 @@ def index():
 
 
 @app.route("/crime/<date>")
-def sample_metadata(date):
-    """Return the MetaData for a given sample."""
+def crime_data(date):
+    """Return the crime data for a given date."""
     sel = [
         Crime.LATITUDE,
         Crime.LONGITUDE,
@@ -106,7 +106,7 @@ def sample_metadata(date):
                                                "temp_max": result[5],
                                                "temp_min": result[6],
                                                "lunar_illum": result[7]
-                                   }
+                                    }
                     }
                 }
 
@@ -115,6 +115,40 @@ def sample_metadata(date):
     # print(geo_json)
 
     return jsonify(geo_json)
+
+
+@app.route("/aggregate")
+def aggregate():
+    sel = [
+        Crime.DATE,
+        func.count(Crime.DATE),
+        func.round(Crime.AVG, 2),
+        func.round(Crime.MAX, 2),
+        func.round(Crime.MIN, 2),
+        Crime.PctIllum
+    ]
+
+    results = db.session.query(*sel).group_by(Crime.DATE).order_by(Crime.DATE).all()
+
+    agg = {"date": [],
+           "crime_count": [],
+           "temp_avg": [],
+           "temp_max": [],
+           "temp_min": [],
+           "lunar_illum": []
+    }
+
+    for result in results:
+        agg["date"].append(result[0])
+        agg["crime_count"].append(result[1])
+        agg["temp_avg"].append(result[2])
+        agg["temp_max"].append(result[3])
+        agg["temp_min"].append(result[4])
+        agg["lunar_illum"].append(result[5])
+
+    # print(agg)
+
+    return jsonify(agg)
 
 
 #################################################
