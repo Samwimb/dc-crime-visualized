@@ -9,16 +9,29 @@ d3.json(queryURL, function(data) {
 
 function heatMap(crimeData) {
   var coords = []
-  
+
+  var wolficon = L.icon({
+    iconUrl: 'static/js/wolf.png',
+    iconSize:     [38, 95],
+    // shadowSize:   [50, 64],
+    iconAnchor:   [22, 94],
+    // shadowAnchor: [4, 62],
+    popupAnchor:  [-3, -76]
+    }
+);
+
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
+      if (feature.properties.weather.lunar_illum >= .98) {
+        return L.marker(feature.geometry.coordinates, {icon: wolficon})
+        }
         return L.marker(feature.geometry.coordinates, {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
           radius: 50
         });
-    },
+      },
     onEachFeature: function (feature, layer) {
         layer.bindPopup("<h3>" + feature.properties.place + "<hr>Magnitude: "
         + +feature.properties.mag + "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
