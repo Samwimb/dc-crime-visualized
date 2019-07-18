@@ -7,12 +7,14 @@ d3.json(queryURL, function(data) {
     heatMap(data.features);
 });
 
+
+
 function heatMap(crimeData) {
   var coords = []
 
   var wolficon = L.icon({
-    iconUrl: 'static/js/wolf.png',
-    iconSize:     [38, 95],
+    iconUrl: 'static/js/werewolf.png',
+    iconSize:     [40, 60],
     // shadowSize:   [50, 64],
     iconAnchor:   [22, 94],
     // shadowAnchor: [4, 62],
@@ -25,16 +27,16 @@ function heatMap(crimeData) {
       if (feature.properties.weather.lunar_illum >= .98) {
         return L.marker(feature.geometry.coordinates, {icon: wolficon})
         }
-        return L.marker(feature.geometry.coordinates, {
+        return L.circle(feature.geometry.coordinates, {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
-          radius: 50
+          radius: 100
         });
       },
     onEachFeature: function (feature, layer) {
-        layer.bindPopup("<h3>" + feature.properties.place + "<hr>Magnitude: "
-        + +feature.properties.mag + "</h3><hr><p>" + new Date(feature.properties.time) + "</p>");
+        layer.bindPopup("<h3>" + feature.properties.offense + "<hr>Report Date: "
+        + feature.properties.report_date + "</h3><hr>");
         coords.push(feature.geometry.coordinates)
     },
     coordsToLatLng: function (coords) {
@@ -95,6 +97,13 @@ function createMap(crimeLayer) {
         accessToken: API_KEY
     });
 
+    var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+      attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+      maxZoom: 18,
+      id: "mapbox.light",
+      accessToken: API_KEY
+    });
+
     var satmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
         attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
         maxZoom: 18,
@@ -106,14 +115,17 @@ function createMap(crimeLayer) {
     var baseMaps = {
       "Street Map": streetmap,
       "Dark Map": darkmap,
-      "Satellite Map": satmap
+      "Satellite Map": satmap,
+      "Light Map": lightmap
     };
   
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
       // Crime: crimeLayer,
     };
-  
+    var startTime = new Date();
+    startTime.setUTCDate(1,0,0,0);
+
     // Create our map, giving it the streetmap and earthquakes layers to display on load
     var myMap = L.map("map", {
       center: [38.889931, -77.009003],
@@ -122,7 +134,8 @@ function createMap(crimeLayer) {
       timeDimensionOptions: {
         timeInterval : "2018-01-01/2018-12-31",
         period: "P1D",
-        autoPlay: true
+        autoPlay: true,
+        currentTime: startTime
       },
       timeDimensionControl: true,
       timeDimensionControlOptions: {
@@ -130,9 +143,12 @@ function createMap(crimeLayer) {
         autoPlay: true,
         minSpeed: 1,
         maxSpeed: 5,
-        speedStep: 1
+        speedStep: 1,
+        playerOptions: {
+          startOver: true
+        }
       },
-      layers: [darkmap]
+      layers: [lightmap]
     });
   
     // Create a layer control
