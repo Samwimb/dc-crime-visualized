@@ -1,16 +1,24 @@
 
 // Store endpoint of API link
 var queryURL = "http://127.0.0.1:5000/crime/2018";
+var districtsJSON = "/static/js/Neighborhood_Clusters.geojson"
+var electionJSON = "/static/js/election_districts.geojson"
+
 
 // Use d3 to access API endpoint
 d3.json(queryURL, function(data) {
-    heatMap(data.features);
+  d3.json(districtsJSON, function(data2) {
+    d3.json(electionJSON, function (data3) {
+      heatMap(data.features, data2.features, data3.features);
+    })
+  }) 
 });
 
 
 
-function heatMap(crimeData) {
+function heatMap(crimeData, districtsData, electionData) {
   var coords = []
+  // console.log(districtsData)
 
   var wolficon = L.icon({
     iconUrl: 'static/js/werewolf.png',
@@ -20,7 +28,14 @@ function heatMap(crimeData) {
     // shadowAnchor: [4, 62],
     popupAnchor:  [-3, -76]
     }
-);
+  );
+
+  function Style() {
+    return {
+        color: "blue",
+        fillOpacity: 0,
+    };
+  }
 
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
@@ -31,7 +46,7 @@ function heatMap(crimeData) {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
-          radius: 100
+          radius: 125
         });
       },
     onEachFeature: function (feature, layer) {
@@ -42,9 +57,40 @@ function heatMap(crimeData) {
     coordsToLatLng: function (coords) {
       return new L.heatLayer(coords);
       }
-});
+  });
+  // console.log(crimeLayer);
+
+  var districts = L.geoJSON(districtsData, {
+    style: function(feature) {
+        return Style(feature.geometry.rings)
+    },
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup("<h3>" + feature.properties.NAME + "</h3><hr><p>" + feature.properties.NBH_NAMES + "</p>");
+    }
+  });
+
+  // var districtsFeature = []
+  // for (var i = 0; i < districtsData.length; i++) {
+  //   var location = districtsData[i].geometry.rings[0]
+  //   // console.log(location)
+  //   districtsFeature.push(location)
+  // }
+  // console.log(districtsFeature);
+
+  // var districts = L.geoJSON(districtsFeature, {
+  // })
+  // console.log(districts);
+
+  var election = L.geoJSON(electionData, {
+    style: function(feature) {
+        return Style(feature)
+    },
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup("<h3>" + feature.properties.DISTRICT + "</h3>");
+    }
+  });
 // console.log(crimeLayer)
-createMap(crimeLayer);
+createMap(crimeLayer, districts, election);
 }
 // function heatMap(response) {
 //     // console.log(response)
@@ -80,7 +126,7 @@ createMap(crimeLayer);
 //     createMap(crimeLayer.heat);
 // }
 
-function createMap(crimeLayer) {
+function createMap(crimeLayer, districts, election) {
 
     // Define streetmap and darkmap layers
     var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
@@ -122,6 +168,8 @@ function createMap(crimeLayer) {
     // Create overlay object to hold our overlay layer
     var overlayMaps = {
       // Crime: crimeLayer,
+      "Districts": districts,
+      "Election Districts": election,
     };
     var startTime = new Date();
     startTime.setUTCDate(1,0,0,0);
@@ -148,7 +196,7 @@ function createMap(crimeLayer) {
           startOver: true
         }
       },
-      layers: [lightmap]
+      layers: [lightmap, districts]
     });
   
     // Create a layer control

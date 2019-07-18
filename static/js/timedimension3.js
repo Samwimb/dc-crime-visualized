@@ -2,10 +2,19 @@
 // Store endpoints of API links
 var queryURL = "http://127.0.0.1:5000/crime/2018";
 var aggURL = "http://127.0.0.1:5000/aggregate";
+var districtsJSON = "/static/js/Neighborhood_Clusters.geojson";
+var electionJSON = "/static/js/election_districts.geojson";
 
 // Use d3 to access API endpoint
+// d3.json(queryURL, function(data) {
+//     heatMap(data.features);
+// });
 d3.json(queryURL, function(data) {
-    heatMap(data.features);
+  d3.json(districtsJSON, function(data2) {
+    d3.json(electionJSON, function (data3) {
+      heatMap(data.features, data2.features, data3.features);
+    })
+  }) 
 });
 
 d3.json(aggURL, function(data) {
@@ -13,11 +22,11 @@ d3.json(aggURL, function(data) {
   creatTimeSeries(data);
 });
 
-function heatMap(crimeData) {
+function heatMap(crimeData, districtsData, electionData) {
   var coords = []
 
   var wolficon = L.icon({
-    iconUrl: 'static/js/wolf.png',
+    iconUrl: 'static/js/werewolf.png',
     iconSize:     [38, 95],
     // shadowSize:   [50, 64],
     iconAnchor:   [22, 94],
@@ -26,12 +35,19 @@ function heatMap(crimeData) {
     }
   );
 
+  function Style() {
+    return {
+        color: "blue",
+        fillOpacity: 0,
+    };
+  }
+
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
       if (feature.properties.weather.lunar_illum >= .98) {
         return L.marker(feature.geometry.coordinates, {icon: wolficon})
         }
-        return L.marker(feature.geometry.coordinates, {
+        return L.circle(feature.geometry.coordinates, {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
@@ -47,8 +63,27 @@ function heatMap(crimeData) {
       return new L.heatLayer(coords);
       }
   });
+
+  var districts = L.geoJSON(districtsData, {
+    style: function(feature) {
+        return Style(feature.geometry.rings)
+    },
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup("<h3>" + feature.properties.NAME + "</h3><hr><p>" + feature.properties.NBH_NAMES + "</p>");
+    }
+  });
+
+  var election = L.geoJSON(electionData, {
+    style: function(feature) {
+        return Style(feature)
+    },
+    onEachFeature: function (feature, layer) {
+        layer.bindPopup("<h3>" + feature.properties.DISTRICT + "</h3>");
+    }
+  });
+
   // console.log(crimeLayer)
-  createMap(crimeLayer);
+  createMap(crimeLayer, districts, election);
 };
 
 function creatTimeSeries(data) {
@@ -125,7 +160,7 @@ function normalize(data) {
   return data.map(x => (x-min)/(max-min));
 }
 
-function createMap(crimeLayer) {
+function createMap(crimeLayer, districts, election) {
 
   // Define streetmap and darkmap layers
   var streetmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
@@ -142,6 +177,13 @@ function createMap(crimeLayer) {
       accessToken: API_KEY
   });
 
+  var lightmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
+    attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
+    maxZoom: 18,
+    id: "mapbox.light",
+    accessToken: API_KEY
+  });
+
   var satmap = L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={accessToken}", {
       attribution: "Map data &copy; <a href=\"https://www.openstreetmap.org/\">OpenStreetMap</a> contributors, <a href=\"https://creativecommons.org/licenses/by-sa/2.0/\">CC-BY-SA</a>, Imagery © <a href=\"https://www.mapbox.com/\">Mapbox</a>",
       maxZoom: 18,
@@ -153,13 +195,18 @@ function createMap(crimeLayer) {
   var baseMaps = {
     "Street Map": streetmap,
     "Dark Map": darkmap,
-    "Satellite Map": satmap
+    "Satellite Map": satmap,
+    "Light Map": lightmap
   };
 
   // Create overlay object to hold our overlay layer
   var overlayMaps = {
     // Crime: crimeLayer,
+    "Districts": districts,
+    "Election Districts": election,
   };
+  var startTime = new Date();
+  startTime.setUTCDate(1,0,0,0);
 
   // Create our map, giving it the streetmap and earthquakes layers to display on load
   var myMap = L.map("map", {
@@ -171,7 +218,7 @@ function createMap(crimeLayer) {
       period: "P1D",
       autoPlay: true
     },
-    layers: [darkmap]
+    layers: [lightmap, districts]
   });
 
   // Create a layer control
