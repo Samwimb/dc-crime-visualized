@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html>
+
+
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>2018 DC Crime vs. Weather</title>
+    <!-- Leaflet JS & CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.3/dist/leaflet.css"
+    integrity="sha512-Rksm5RenBEKSKFjgI3a41vrjkw4EVPlJ3+OiI65vTjIdo9brlAacEuKOiQ5OFh7cOI1bkDwLqdLw3Zg0cRJAAQ=="
+    crossorigin=""/>
+    <script src="https://unpkg.com/leaflet@1.3.3/dist/leaflet.js"
+    integrity="sha512-tAGcCfR4Sc5ZP5ZoVz0quoZDYX5aCtEm/eu1KhSLj2c9eFrylXZknQYmxUssFaVJKvvc0dJQixhGjG2yXWiV9Q=="
+    crossorigin=""></script>
+
+    <!-- d3 JS -->
+    <script src="https://d3js.org/d3.v4.min.js"></script>
+
+    <!-- Marker Cluster JS & CSS -->
+    <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+<!-- Link to CSS -->
+   <!-- <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style1.css') }}"> -->
+   <link rel="stylesheet" href="../static/css/style.css">
+
+</head>
+
+<body>
+    <!-- Navigation  Bar Section -->
+    <div class="navigation">
+        <nav class="navbar fixed-top navbar-expand-lg navbar-light">
+        <a class="navbar-brand" style="background-color: rgb(173, 11, 11);" href="index1.html">DC Crime Stats</a>
+        <button class="navbar-toggler  border border-white" type="button" data-toggle="collapse" data-target="#navbarNavDropdown"
+            aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavDropdown">
+            <ul class="navbar-nav ml-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="data.html">Data Cleaning</a>
+                </li>
+                <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                          aria-haspopup="true" aria-expanded="false">
+                          Plots
+                        </a>
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                          <a class="dropdown-item" href="max_temp.html">Heatmap</a>
+                          <a class="dropdown-item" href="humidity.html">Cluster map</a>
+                        </div>
+                </li>    
+            </ul>
+        </div>
+        </nav>
+    </div>
+
+<!-- Content Section -->
+<div class="container">
+        <div class="row">
+          <!-- Left-handside box-->
+          <div class="col-lg-5 col-md-12">
+            <div class="box">
+              <h3 class="title">DC Crime vs. Weather</h3>
+              <hr>
+              <p>The purpose of Project NIGHTLIGHT is the analysis and vizualization of 2018 mutual concurrence of crime, weather, 
+                    and lunar phases in Washington, DC. NIGHTLIGHT extracted, transformed, and loaded into SQLAlchemy, 
+                    daily data from <a href="https://opendata.dc.gov/">DC Open Data (crime)</a>,  and the National Oceanic and Atmospheric Adminstration 
+                  <a href="https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40">(NNDC Climate Online</a>, 
+                    NASA GSFC and the Lunar Reconnaissance Orbitor [LRO]).
+                    Lunar phase data includes the percent of moon illumination seen in the city.
+                </p>
+              <p>Leaflet, to include Plotly and Time Dimension JavaScipt libraries, was employed to vizualize the concurrence of crime, 
+                  to include location, average daily weather temperatures, and lunar phases.
+                </p>
+            </div>
+          </div>
+          
+          <!-- Right-handside box -->
+          <div class="col-lg-7 col-md-12">
+            <div class="box">
+              <h5 class="title">Maps</h5>
+              <hr>
+              <div class="container">
+                <!-- <div class="row" style="padding-bottom: 30px;">
+                  <div class="col-12">
+                    <a href="max_temp.html">
+                      Heatmap
+                    </a>
+                  </div>
+                  <div class="col-12">
+                    <a href="humidity.html">
+                      Cluster Map
+                    </a>
+                  </div>
+                </div> -->
+    
+                <div class="row" style="padding-bottom: 30px;">
+                    <div class="col-6">
+                        <a href="cloudiness.html">
+                        <img class="panel" src="Images/Cluster2.png" alt="Cluster Map">
+                        </a>
+                    </div> 
+                    <div class="col-6">
+                        <a href="windspeed.html">
+                        <img class="panel" src="Images/Heatmap2.png" alt="Heatmap">
+                        </a>
+                    </div>
+                </div>
+              </div>
+            <!-- end right-handside box -->
+            </div>
+
+          </div>
+
+          <div class = "row">
+                <div id="map" style="height: 600px; width: 800px; align-self: center;"></div>
+                <div id="plot" style="width: 800px; align-self: center;"></div>
+          </div>
+        </div>
+
+
+    
+    
+
+    <!-- Footer Section -->
+    <footer class="footer" style="text-align: center;">
+            <span class="bottom">DC Crime Stats 2019</span>
+          </footer>
+    
+    <!-- Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+</body>
+</HTML>
