@@ -25,7 +25,7 @@ function heatMap(crimeData, districtsData, electionData) {
   // Custom map icon for full moon nights
   var wolficon = L.icon({
     iconUrl: 'static/js/werewolf.png',
-    iconSize:     [38, 95],
+    iconSize:     [30, 50],
     iconAnchor:   [22, 94],
     popupAnchor:  [-3, -76]
     }
@@ -50,7 +50,7 @@ function heatMap(crimeData, districtsData, electionData) {
           stroke: false,
           fillColor: "Red",
           fillOpacity: 1,
-          radius: 50
+          radius: 125
         });
     },
 

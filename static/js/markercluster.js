@@ -22,7 +22,7 @@ d3.json(url, function(response) {
     
   var wolficon = L.icon({
     iconUrl: 'static/js/werewolf.png',
-    iconSize:     [40, 60],
+    iconSize:     [30, 50],
     iconAnchor:   [22, 94],
     popupAnchor:  [-3, -76]
     }
@@ -30,7 +30,6 @@ d3.json(url, function(response) {
 
 
   var markers = L.markerClusterGroup({
-    // polygonOptions: {fillColor: "red"}
   });
 
   // Loop through data

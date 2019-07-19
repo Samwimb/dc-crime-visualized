@@ -21,7 +21,7 @@ function heatMap(crimeData, districtsData, electionData) {
 
   var wolficon = L.icon({
     iconUrl: 'static/js/werewolf.png',
-    iconSize:     [40, 60],
+    iconSize:     [30, 50],
     iconAnchor:   [22, 94],
     popupAnchor:  [-3, -76]
     }
@@ -40,7 +40,7 @@ function heatMap(crimeData, districtsData, electionData) {
         stroke: false,
         fillColor: "Red",
         fillOpacity: .3,
-        radius: 100
+        radius: 125
       });
       if (feature.properties.weather.lunar_illum >= .98) {
         return L.marker(feature.geometry.coordinates, {icon: wolficon})

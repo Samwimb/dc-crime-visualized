@@ -72,9 +72,10 @@ class Crime(Base):
 @app.route("/")
 def index():
     """Return the homepage."""
-    return render_template("index.html")
-    # return render_template("heatmap.html")
-    # return render_template("heatmap2.html")
+    # return render_template("markercluster.html")
+    # return render_template("crime-timeseries.html")
+    # return render_template("monthly-averages.html")
+    return render_template("index1.html")
 
 
 @app.route("/crime/<date>")

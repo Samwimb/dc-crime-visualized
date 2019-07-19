@@ -21,13 +21,8 @@
    <!-- d3 JS -->
    <script src="https://d3js.org/d3.v4.min.js"></script>
 
-  <!-- Marker Cluster JS & CSS -->
-  <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
-  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
-
    <!-- Our CSS -->
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style1.css') }}">
 
  </head>
  <body>
@@ -40,10 +35,7 @@
    <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
    
    <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/crime.js') }}"></script> -->
-   <script type="text/javascript" src="{{ url_for('static', filename='js/markercluster.js') }}"></script>
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/heatmap.js') }}"></script> -->
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/timedimension.js') }}"></script> -->
+   <script type="text/javascript" src="{{ url_for('static', filename='js/crime_timeseries.js') }}"></script>
     
 
  </body>
