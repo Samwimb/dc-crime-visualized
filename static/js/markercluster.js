@@ -14,9 +14,6 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 
 // Store API query variables
 var url = "http://127.0.0.1:5000/crime/2018"
-// var url = "https://maps2.dcgis.dc.gov/dcgis/rest/services/FEEDS/MPD/MapServer/0/query?where=1%3D1&outFields=LATITUDE,LONGITUDE&outSR=4326&f=json";
-// var url = "https://data.cityofnewyork.us/resource/fhrw-4uyv.json"
-  // Create a new marker cluster group
 
 
 // Grab the data with d3
@@ -24,38 +21,39 @@ d3.json(url, function(response) {
 
     
   var wolficon = L.icon({
-    iconUrl: 'static/js/wolf.png',
-    iconSize:     [38, 95],
-    // shadowSize:   [50, 64],
+    iconUrl: 'static/js/werewolf.png',
+    iconSize:     [40, 60],
     iconAnchor:   [22, 94],
-    // shadowAnchor: [4, 62],
     popupAnchor:  [-3, -76]
     }
-);
+  );
 
 
   var markers = L.markerClusterGroup({
     // polygonOptions: {fillColor: "red"}
   });
-  console.log(response)
+
   // Loop through data
   for (var i = 0; i < response.features.length; i++) {
 
     // Set the data location property to a variable
-    var location = response.features[i].geometry;
-
-    // var lat = response[i].features.geometry.x
-    // var long = response[i].features.geometry.y
+    var location = response.features[i];
 
     // Check for location property
     if (location) {
       // Add a new marker to the cluster group and bind a pop-up
-      markers.addLayer(L.marker([location.coordinates[0], location.coordinates[1]], {icon: wolficon})
-        .bindPopup("<h3>" + response.features[i].properties.offense + "<hr>Report Date: "
-        + response.features[i].properties.report_date + "</h3><hr>"));
+      if (location.properties.weather.lunar_illum >= .98) {
+        markers.addLayer(L.marker(location.geometry.coordinates, {icon: wolficon}))
+        }
+        markers.addLayer(L.circleMarker(location.geometry.coordinates, {
+          stroke: false,
+          fillColor: "Red",
+          fillOpacity: 1,
+          radius: 10
+        }));
+        markers.bindPopup("<h3>" + response.features[i].properties.offense + "<hr>Report Date: "
+        + response.features[i].properties.report_date + "</h3><hr>");
 
-        // .bindPopup(response.features[i].properties.offense))
-        // .bindPopup(response.features[i].properties.report_date);
     }
 
   }

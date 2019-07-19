@@ -21,14 +21,19 @@
    <!-- d3 JS -->
    <script src="https://d3js.org/d3.v4.min.js"></script>
 
+  <!-- Marker Cluster JS & CSS -->
+  <script type="text/javascript" src="https://unpkg.com/leaflet.markercluster@1.0.3/dist/leaflet.markercluster.js"></script>
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.css">
+  <link rel="stylesheet" type="text/css" href="https://unpkg.com/leaflet.markercluster@1.0.3/dist/MarkerCluster.Default.css">
+
    <!-- Our CSS -->
    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
 
  </head>
  <body>
 
-   <div id="map"></div>
-   
+  <div id="map" style="height: 600px; width: 800px; align-self: center;"></div>
+  <div id="plot" style="width: 800px; align-self: center;"></div>
 
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
    <script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
@@ -36,13 +41,10 @@
    
    <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/crime.js') }}"></script> -->
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/markercluster.js') }}"></script> -->
+   <script type="text/javascript" src="{{ url_for('static', filename='js/markercluster.js') }}"></script>
    <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/heatmap.js') }}"></script> -->
-   <script type="text/javascript" src="{{ url_for('static', filename='js/timedimension3.js') }}"></script>
-
-    <!-- Leaflet heatmap plugin-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/leaflet-heat.js') }}"></script>
-    <div id="plot"></div>
+   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/timedimension.js') }}"></script> -->
+    
 
  </body>
 </html>

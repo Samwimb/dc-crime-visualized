@@ -72,8 +72,8 @@ class Crime(Base):
 @app.route("/")
 def index():
     """Return the homepage."""
-    # return render_template("index.html")
-    return render_template("heatmap.html")
+    return render_template("index.html")
+    # return render_template("heatmap.html")
     # return render_template("heatmap2.html")
 
 
