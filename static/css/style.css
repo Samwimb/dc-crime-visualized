@@ -31,7 +31,7 @@ p{
 /* Title */
 .title{ 
   font-family: Georgia, 'Times New Roman', Times, serif;
-  color: #rgb(173, 11, 11);  
+  color: #AD0B2D;  
   font-weight: bolder; 
   padding-top: 25px; 
 }
@@ -52,13 +52,13 @@ footer{
   background-color: #666666; 
   border-top-style: solid; 
   border-top-width: 3px; 
-  border-top-color: #rgb(173, 11, 11);
+  border-top-color: #AD0B2D;
   color: white; 
   min-height: 40px; 
   text-align: center; 
   position: fixed;
   left: 0;
-  /* bottom: 0; */
+  bottom: 0;
   width: 100%;
   padding-top: 10px; 
 }
@@ -83,7 +83,7 @@ footer{
   margin-left: 30px; 
   padding: inherit; 
   font-weight: bold; 
-  background-color: #rgb(173, 11, 11);
+  background-color: #AD0B2D;
 }
 .navbar{
   background-color: white; 
@@ -114,7 +114,7 @@ color: rgb(0, 0, 225) !important;
 /* Media Queries */
 @media(max-width: 992px){
     .navbar-expand-lg{
-    background-color: #0BADA6 !important;
+    background-color: #AD0B2D !important;
     }
     .navbar{
         max-height: none; 
