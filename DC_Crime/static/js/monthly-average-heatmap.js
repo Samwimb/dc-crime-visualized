@@ -6,9 +6,10 @@ var electionJSON = "/static/js/election_districts.geojson"
 
 
 // Use d3 to access API endpoint
-d3.json(queryURL, function(data) {
-  d3.json(districtsJSON, function(data2) {
-    d3.json(electionJSON, function (data3) {
+d3.json(queryURL).then(function(data) {
+  d3.json(districtsJSON).then(function(data2) {
+    d3.json(electionJSON).then(function (data3) {
+      console.log(data);
       heatMap(data.features, data2.features, data3.features);
     })
   }) 
