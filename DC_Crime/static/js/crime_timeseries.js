@@ -1,4 +1,4 @@
-
+API_KEY = System.getenv('API_KEY');
 // Store endpoints of API links
 var queryURL = "http://127.0.0.1:5000/crime/2018";
 var aggURL = "http://127.0.0.1:5000/aggregate";
