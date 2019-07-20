@@ -70,11 +70,21 @@ class Crime(Base):
 
 @app.route("/")
 def index():
-    """Return the homepage."""
-    # return render_template("markercluster.html")
-    # return render_template("crime-timeseries.html")
-    # return render_template("monthly-averages.html")
     return render_template("index1.html")
+
+@app.route("/<page>")
+def getpage(page):
+    """Return the requested page."""
+
+    pages = ["markercluster.html",
+             "crime-timeseries.html",
+             "monthly-averages.html",
+             "data.html"]
+    
+    if page in pages:
+        return render_template(page)
+    else:
+        return render_template("index1.html")
 
 
 @app.route("/crime/<date>")

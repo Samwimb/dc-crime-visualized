@@ -213,8 +213,8 @@ color: rgb(0, 0, 225) !important;
     <hr>
     <p>The purpose of Project NIGHTLIGHT is the analysis and vizualization of 2018 mutual concurrence of crime, weather, 
       and lunar phases in Washington, DC. NIGHTLIGHT extracted, transformed, and loaded into SQLAlchemy, 
-      daily data from <a href="https://opendata.dc.gov/">DC Open Data (crime)</a>,  and the National Oceanic and Atmospheric Adminstration 
-      <a href="https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40">(NNDC Climate Online</a>, 
+      daily data from <a href="https://opendata.dc.gov/"><strong>DC Open Data (crime)</strong></a>,  and the National Oceanic and Atmospheric Adminstration (
+        <a href="https://www7.ncdc.noaa.gov/CDO/cdopoemain.cmd?datasetabbv=DS3505&countryabbv=&georegionabbv=&resolution=40"><strong>NNDC Climate Online</strong></a>, 
       NASA GSFC and the Lunar Reconnaissance Orbitor [LRO]).
       Lunar phase data includes the percent of moon illumination seen in the city.
     </p>
@@ -235,19 +235,19 @@ color: rgb(0, 0, 225) !important;
       <div class="row" style="padding-bottom: 30px;">
         <div class="col-6">
           <a href="crime-timeseries.html">
-            <img class="panel" src="Images/timeseries.png" alt="Time Series Map">
+            <img class="panel" src="{{ url_for('static', filename='Images/timeseries.png') }}" alt="Time Series Map">
           </a>
         </div> 
         <div class="col-6">
           <a href="monthly-averages.html">
-            <img class="panel" src="Images/heatmap.png" alt="'Heat-ish' map">
+            <img class="panel" src="{{ url_for('static', filename='Images/Heatmap.png') }}" alt="'Heat-ish' map">
           </a>
         </div>
       </div>
       <div class="row" style="padding-bottom: 30px;">
         <div class="col-6">
           <a href="markercluster.html">
-            <img class="panel" src="Images/clustermap.png" alt="Cluster Map">
+            <img class="panel" src="{{ url_for('static', filename='Images/clustermap.png') }}" alt="Cluster Map">
           </a>
         </div> 
       </div>
@@ -267,7 +267,7 @@ color: rgb(0, 0, 225) !important;
 
 <!-- Footer Section -->
 <footer class="footer" style="text-align: center;">
-  <span class="bottom">Copyright &copy; Rebeca Hassan, Fiona Nguyen, Veronique Singh, Justin Stubbs, Sam Wimberly 2019</span>
+  <span class="bottom">Copyright &copy; Rebeca Hassan, Fiona Nguyen, Veronique Singh, Justin Stubbs, Sam Wimberly - 2019</span>
 </footer>
     
 <!-- Bootstrap JS -->
