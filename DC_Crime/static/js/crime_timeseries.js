@@ -1,4 +1,4 @@
-API_KEY = System.getenv('API_KEY');
+API_KEY = "pk.eyJ1IjoiZGMtY3JpbWUtYXBwIiwiYSI6ImNqeWF0eGxjZTAyYzAzbXFtbjloaG9yYWIifQ.fO2HGOd4tD6oI7JTwHQRZw";
 // Store endpoints of API links
 var queryURL = "/crime/2018";
 var aggURL = "/aggregate";
