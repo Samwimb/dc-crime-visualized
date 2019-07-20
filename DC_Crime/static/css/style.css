@@ -1,0 +1,139 @@
+/* body {
+  padding: 0;
+  margin: 0;
+}
+
+#map,
+body,
+html {
+  height: 100%;
+} */
+
+body {
+  padding: 10px 20px 15px;
+  margin: 60px;
+  background-color: #EDEDED;
+}
+
+#map,
+body,
+html {
+  height: 100%;
+}
+
+/* Paragraph */
+p{
+  font-size: 17px; 
+  color: #6D8092;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Title */
+.title{ 
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  color: #AD0B2D;  
+  font-weight: bolder; 
+  padding-top: 25px; 
+}
+
+/* Box Class */
+.box {
+  margin-top: 60px; 
+  margin-bottom: 62px; 
+  padding: 10px 20px 15px; 
+  color:black;
+  background-color: white; 
+}
+
+/* Footer */
+footer{ 
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 12px; 
+  background-color: #666666; 
+  border-top-style: solid; 
+  border-top-width: 3px; 
+  border-top-color: #AD0B2D;
+  color: white; 
+  min-height: 40px; 
+  text-align: center; 
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  padding-top: 10px; 
+}
+
+/* The code styles the text at the bottom of the footer */
+.footer > .bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    padding: 5px;
+    background: #1b3146;
+  }
+
+/* Navbar */
+.navbar{
+  max-height: 55px; 
+}
+.navigation .navbar-brand{
+  color: white; 
+  font-family: Georgia, 'Times New Roman', Times, serif;
+  margin-left: 30px; 
+  padding: inherit; 
+  font-weight: bold; 
+  background-color: #AD0B2D;
+}
+.navbar{
+  background-color: white; 
+  font-size: 15px; 
+}
+.active, .dropdown-menu .dropdown-item:active a:hover{
+  background-color:#E7E7E7!important; 
+}
+.dropdown-item{
+  color: #6D8092 !important; 
+}
+.dropdown .dropdown-menu .dropdown-item:active, .dropdown .dropdown-menu .dropdown-item:hover{
+  background-color:#E7E7E7 !important; 
+}
+a{
+  color: #6D8092;
+  font-size: 15px; 
+}
+.nav-link:hover{
+  background-color:#E7E7E7 !important;
+}
+
+.navbar-brand:hover{
+color: rgb(0, 0, 225) !important;
+}
+
+
+/* Media Queries */
+@media(max-width: 992px){
+    .navbar-expand-lg{
+    background-color: #AD0B2D !important;
+    }
+    .navbar{
+        max-height: none; 
+        padding: inherit;
+    }
+    .navbar div{
+        margin: inherit; 
+        background-color: white;  
+    }
+    .navbar-brand{
+        padding: 10px !important; 
+    }
+    
+    button{
+        margin-right: 30px; 
+    }
+    button:focus{
+        outline: 1px dotted;
+        outline: 5px auto -webkit-focusring-color;
+    }
+    /* Closing the media query */
+    }

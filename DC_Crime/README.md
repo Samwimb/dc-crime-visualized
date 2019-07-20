@@ -1,0 +1,2 @@
+# dc-crime-visualized
+For Project 2, we will create visualizations of DC crime incident locations. We will look at factors that have been attributed to impact crime rates. For example, we will use lunar cycle data to analyze if there if there is an higher number of crimes committed on full moon days when compared to all other days, new moon days, and seventh days after the full moon and new moon. We will also use weather data to identify if the occurrence of nicer days, when the level of social activity tends to increase, springs in a similar criminal activity increase.
