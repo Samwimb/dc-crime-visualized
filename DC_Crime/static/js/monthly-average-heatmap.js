@@ -1,6 +1,6 @@
 API_KEY = System.getenv('API_KEY');
 // Store endpoint of API link
-var queryURL = "http://127.0.0.1:5000/crime/2018";
+var queryURL = "/crime/2018";
 var districtsJSON = "/static/js/Neighborhood_Clusters.geojson"
 var electionJSON = "/static/js/election_districts.geojson"
 

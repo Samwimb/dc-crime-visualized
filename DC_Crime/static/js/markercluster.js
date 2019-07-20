@@ -1,5 +1,4 @@
 API_KEY = System.getenv('API_KEY');
-console.log(API_KEY);
 // Creating map object
 var myMap = L.map("map", {
   center: [38.889931, -77.009003],
@@ -15,7 +14,7 @@ L.tileLayer("https://api.tiles.mapbox.com/v4/{id}/{z}/{x}/{y}.png?access_token={
 }).addTo(myMap);
 
 // Store API query variables
-var url = "http://127.0.0.1:5000/crime/2018"
+var url = "/crime/2018"
 
 
 // Grab the data with d3
