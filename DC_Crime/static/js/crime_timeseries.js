@@ -6,9 +6,9 @@ var districtsJSON = "/static/js/Neighborhood_Clusters.geojson";
 var electionJSON = "/static/js/election_districts.geojson";
 
 // Query API for heatmap and district line data
-d3.json(queryURL).then(function(data) {
-  d3.json(districtsJSON).then(function(data2) {
-    d3.json(electionJSON).then(function (data3) {
+d3.json(queryURL, function(data) {
+  d3.json(districtsJSON, function(data2) {
+    d3.json(electionJSON, function (data3) {
       console.log(data);
       heatMap(data.features, data2.features, data3.features);
     })
