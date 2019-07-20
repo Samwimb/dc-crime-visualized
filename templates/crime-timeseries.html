@@ -22,27 +22,21 @@
    <script src="https://d3js.org/d3.v4.min.js"></script>
 
    <!-- Our CSS -->
-   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style.css') }}">
+   <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/style1.css') }}">
 
  </head>
  <body>
 
-   <div id="map"></div>
-   
+  <div id="map" style="height: 600px; width: 800px; align-self: center;"></div>
+  <div id="plot" style="width: 800px; align-self: center;"></div>
 
    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.2.0/leaflet.js"></script>
    <script type="text/javascript" src="https://cdn.rawgit.com/nezasa/iso8601-js-period/master/iso8601.min.js"></script>
    <script type="text/javascript" src="https://cdn.rawgit.com/socib/Leaflet.TimeDimension/master/dist/leaflet.timedimension.min.js"></script>
    
    <script type="text/javascript" src="{{ url_for('static', filename='js/config.js') }}"></script>
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/crime.js') }}"></script> -->
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/markercluster.js') }}"></script> -->
-   <!-- <script type="text/javascript" src="{{ url_for('static', filename='js/heatmap.js') }}"></script> -->
-   <script type="text/javascript" src="{{ url_for('static', filename='js/timedimension3.js') }}"></script>
-
-    <!-- Leaflet heatmap plugin-->
-    <script type="text/javascript" src="{{ url_for('static', filename='js/leaflet-heat.js') }}"></script>
-    <div id="plot"></div>
+   <script type="text/javascript" src="{{ url_for('static', filename='js/crime_timeseries.js') }}"></script>
+    
 
  </body>
 </html>

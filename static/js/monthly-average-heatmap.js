@@ -18,14 +18,11 @@ d3.json(queryURL, function(data) {
 
 function heatMap(crimeData, districtsData, electionData) {
   var coords = []
-  // console.log(districtsData)
 
   var wolficon = L.icon({
     iconUrl: 'static/js/werewolf.png',
-    iconSize:     [40, 60],
-    // shadowSize:   [50, 64],
+    iconSize:     [30, 50],
     iconAnchor:   [22, 94],
-    // shadowAnchor: [4, 62],
     popupAnchor:  [-3, -76]
     }
   );
@@ -39,6 +36,12 @@ function heatMap(crimeData, districtsData, electionData) {
 
   var crimeLayer = L.geoJSON(crimeData, {
     pointToLayer: function (feature) {
+      return L.circle(feature.geometry.coordinates, {
+        stroke: false,
+        fillColor: "Red",
+        fillOpacity: .3,
+        radius: 125
+      });
       if (feature.properties.weather.lunar_illum >= .98) {
         return L.marker(feature.geometry.coordinates, {icon: wolficon})
         }
@@ -54,9 +57,6 @@ function heatMap(crimeData, districtsData, electionData) {
         + feature.properties.report_date + "</h3><hr>");
         coords.push(feature.geometry.coordinates)
     },
-    coordsToLatLng: function (coords) {
-      return new L.heatLayer(coords);
-      }
   });
   // console.log(crimeLayer);
 
@@ -68,18 +68,6 @@ function heatMap(crimeData, districtsData, electionData) {
         layer.bindPopup("<h3>" + feature.properties.NAME + "</h3><hr><p>" + feature.properties.NBH_NAMES + "</p>");
     }
   });
-
-  // var districtsFeature = []
-  // for (var i = 0; i < districtsData.length; i++) {
-  //   var location = districtsData[i].geometry.rings[0]
-  //   // console.log(location)
-  //   districtsFeature.push(location)
-  // }
-  // console.log(districtsFeature);
-
-  // var districts = L.geoJSON(districtsFeature, {
-  // })
-  // console.log(districts);
 
   var election = L.geoJSON(electionData, {
     style: function(feature) {
@@ -227,6 +215,6 @@ var timeLayer = L.timeDimension.layer.geoJson.geometryCollection = function(laye
 geoJsonTimeLayer = L.timeDimension.layer.geoJson.geometryCollection(crimeLayer, {
   // updateTimeDimension: true,
   updateTimeDimensionMode: 'replace',
-  duration: 'P1D',
+  duration: 'P1M',
   }).addTo(myMap);
 }
