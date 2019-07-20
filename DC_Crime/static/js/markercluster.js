@@ -1,4 +1,5 @@
 API_KEY = System.getenv('API_KEY');
+console.log(API_KEY);
 // Creating map object
 var myMap = L.map("map", {
   center: [38.889931, -77.009003],
