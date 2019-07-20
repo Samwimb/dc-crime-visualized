@@ -9,15 +9,15 @@ var electionJSON = "/static/js/election_districts.geojson";
 d3.json(queryURL, function(data) {
   d3.json(districtsJSON, function(data2) {
     d3.json(electionJSON, function (data3) {
-      console.log(data);
+      // console.log(data);
       heatMap(data.features, data2.features, data3.features);
     })
   }) 
 });
 
 // Query API for aggregated data to build Plotly time series
-d3.json(aggURL).then(function(data) {
-  console.log(data);
+d3.json(aggURL, function(data) {
+  // console.log(data);
   creatTimeSeries(data);
 });
 
