@@ -32,7 +32,11 @@ Base = declarative_base()
 # Set up classes
 class Crime(Base):
     __tablename__ = 'crime_weather'
-    i = Column(Integer)
+    DATE = Column(String(255))
+    AVG = Column(Float)
+    MAX = Column(Integer)
+    MIN = Column(Integer)
+    PctIllum = Column(Float)
     X = Column(Float)
     Y = Column(Float)
     CCN = Column(String(255), primary_key=True)
@@ -58,11 +62,6 @@ class Crime(Base):
     END_DATE = Column(String(255))
     OBJECTID = Column(String(255))
     OCTO_RECORD_ID = Column(String(255))
-    DATE = Column(String(255))
-    AVG = Column(Float)
-    MAX = Column(Integer)
-    MIN = Column(Integer)
-    PctIllum = Column(Float)
 
 
 #################################################
@@ -83,7 +82,7 @@ def crime_data(date):
     sel = [
         Crime.LATITUDE,
         Crime.LONGITUDE,
-        Crime.REPORT_DAT,
+        Crime.DATE,
         Crime.OFFENSE,
         Crime.AVG,
         Crime.MAX,
@@ -91,7 +90,7 @@ def crime_data(date):
         Crime.PctIllum
     ]
 
-    results = db.session.query(*sel).filter(Crime.REPORT_DAT.like(f"{date}%")).all()
+    results = db.session.query(*sel).filter(Crime.DATE.like(f"{date}%")).all()
 
     geo_json = {"type": "FeatureCollection", "features": []}
 
